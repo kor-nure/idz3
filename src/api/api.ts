@@ -9,7 +9,11 @@ export const Api = axios.create({
 
 Api.interceptors.request.use(
   (config) => {
-    config.headers["Authorization"] = `Bearer ${ENV.githubAccessToken}`;
+    const { githubAccessToken } = ENV;
+
+    if (githubAccessToken) {
+      config.headers["Authorization"] = `Bearer ${githubAccessToken}`;
+    }
 
     return config;
   },
